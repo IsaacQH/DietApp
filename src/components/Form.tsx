@@ -22,9 +22,20 @@ export const Form = () => {
         })
     }
 
+    function isValidActivity(){
+        const {name, calories} = activity
+        return name.trim() !== '' && calories > 0
+    }
+
+    function handleSubmit(e:React.FormEvent<HTMLFormElement>){
+        e.preventDefault()
+        console.log("REGISTRANDO ACTIVIDAD")
+    }
+
   return (
     <form
         className="space-y-5 bg-gray-700 shadow p-10 rounded-3xl text-white"
+        onSubmit={handleSubmit}
     >
         {/* DIV DEL INPUT SECTION */}
         <div className="grid grid-cols-1 gap-3">
@@ -74,8 +85,9 @@ export const Form = () => {
              {/* SUBMIT */}
              <input 
                 type="submit"
-                className="bg-gray-800 hover:bg-slate-900 w-full p-2 font-bold uppercase text-white cursor-pointer rounded-md mt-5"
-                value="Add calories"
+                className="bg-gray-800 hover:bg-slate-900 w-full p-2 font-bold uppercase text-white cursor-pointer rounded-md mt-5 disabled:cursor-not-allowed disabled:bg-gray-500"
+                value={!isValidActivity() ? "Fill Records" : "Add New"}
+                disabled={!isValidActivity()}
             />
         </div>
     </form>
