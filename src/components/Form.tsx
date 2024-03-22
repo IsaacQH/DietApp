@@ -1,8 +1,27 @@
+import { useState } from "react"
 
 import { categories } from "../data/categories"
+import { Activity } from "../types"
 
 
 export const Form = () => {
+
+    const [activity, setActivity] = useState<Activity>({
+        category: 1,   //Registra el id de ctegory default 1
+        name: '',
+        calories: 0
+    })
+
+    function handleChange(e: React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLInputElement>){
+
+        const isNumberfile = ['category','calories'].includes(e.target.id)
+
+        setActivity({
+            ...activity,
+            [e.target.id] : isNumberfile ? Number(e.target.value) : e.target.value
+        })
+    }
+
   return (
     <form
         className="space-y-5 bg-gray-700 shadow p-10 rounded-3xl text-white"
@@ -13,9 +32,11 @@ export const Form = () => {
             <select
                 className="border border-slate-500 p-2 rounded-lg w-full bg-gray-600"
                 id="category"
+                value = {activity.category}
+                onChange={handleChange}
             >
                 {categories.map( (category) => (
-                    <option key = {category.id}>
+                    <option key = {category.id} value={category.id}>
                         {category.name}
                     </option>
                 ))}
@@ -25,13 +46,14 @@ export const Form = () => {
 
         {/* DIV DEL INPUT NAME */}
         <div className="grid grid-cols-1 gap-3">
-            <label htmlFor="activity">Name: </label>
+            <label htmlFor="name">Name: </label>
             <input
-                id="activity"
+                id="name"
                 placeholder="Activity or Food"
                 type="text"
                 className="border border-slate-500 p-2 rounded-lg w-full bg-gray-600"
-                
+                value = {activity.name}
+                onChange={handleChange}
             >
             </input>
         </div>
@@ -40,11 +62,12 @@ export const Form = () => {
          <div className="grid grid-cols-1 gap-3">
             <label htmlFor="calories">Calories: </label>
             <input
-                id="activity"
+                id="calories"
                 placeholder="Number of calories"
                 type="number"
                 className="border border-slate-500 p-2 rounded-lg w-full bg-gray-600"
-                
+                value = {activity.calories}
+                onChange={handleChange}
             >
             </input>
 
