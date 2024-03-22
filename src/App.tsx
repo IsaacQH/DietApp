@@ -4,7 +4,23 @@ function App() {
 
   return (
     <>
-    <h1>Contador Clorias</h1>
+      <header className="bg-lime-600 py-3">
+        <div className="max-w-4xl mx-auto flex items-center justify-start"> 
+          <div className="flex items-center"> 
+            <img src="src\assets\logo.png" alt="logo" className="mr-2" />
+            <h1 className="text-lg font-bold text-white uppercase">Diet App ®</h1>
+          </div>
+          <div className="justify-end">
+          </div>
+        </div>
+      </header>
+
+      <section className=" bg-lime-500 py-20 px-5">
+        <div className="max-w-4xl mx-auto">
+          <p>Forulario aqui</p>
+        </div>
+      </section>
+
     </>
   )
 }
