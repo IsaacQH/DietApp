@@ -8,6 +8,7 @@ export type Category = {
 
 //Tipo de datos para actividad individual registrada
 export type Activity = {
+    id: string,
     category: number,
     name: string,
     calories: number
