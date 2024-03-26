@@ -1,13 +1,14 @@
-import { useState, Dispatch } from "react"
+import { useState, Dispatch, useEffect } from "react"
 
 import { categories } from "../data/categories"
 import type { Activity } from "../types"
-import { ActivityActions } from "../reducers/activityReducer"
+import { ActivityActions, ActivityState } from "../reducers/activityReducer"
 
 import {v4 as uuidv4} from 'uuid'
 
 type FormProps = {
-    dispatch: Dispatch<ActivityActions>
+    dispatch: Dispatch<ActivityActions>,
+    state: ActivityState
 }
 
 const initialState:Activity = {
@@ -17,9 +18,16 @@ const initialState:Activity = {
     calories: 0
 }
 
-export const Form = ({dispatch}:FormProps) => {
+export const Form = ({dispatch, state}:FormProps) => {
 
     const [activity, setActivity] = useState<Activity>(initialState)
+
+    useEffect(() => {
+        if(state.actID){
+            const selectedActivity = state.activities.filter((stateActivity) => stateActivity.id === state.actID)[0] //Busca que la actividad registrada sea la misma que la del actID, regresa el primer objeto encontrado
+            setActivity(selectedActivity)  //Setea al activity encontrado
+        }
+    },[state.actID])
 
     function handleChange(e: React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLInputElement>){
 

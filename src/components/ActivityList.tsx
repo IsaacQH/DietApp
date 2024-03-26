@@ -1,12 +1,15 @@
 import type { Activity } from "../types"
 import { categories } from "../data/categories"
-import { useMemo } from "react"
+import { Dispatch, useMemo } from "react"
+import { PencilSquareIcon } from "@heroicons/react/24/outline"
+import { ActivityActions } from "../reducers/activityReducer"
 
 type ActivityListProps = {
-    activities: Activity[]
+    activities: Activity[],
+    dispatch: Dispatch<ActivityActions>
 }
 
-export const ActivityList = ({activities}:ActivityListProps) => {
+export const ActivityList = ({activities, dispatch}:ActivityListProps) => {
 
     //Esta función usa use Memo y recibe el category cada que use memo se activa por haber modificado el valor de activities
     const categoryName = useMemo(() => (category:Activity['category']) => (
@@ -28,8 +31,13 @@ export const ActivityList = ({activities}:ActivityListProps) => {
                         </p>
                     </div>
 
-                    <div>
-
+                    <div className="flex gap-5 items-center">
+                        <button>
+                            <PencilSquareIcon
+                                className="h-8 w-8 text-white"
+                                onClick={() => dispatch({type: 'set-actID', payload: {id: activity.id}})}
+                            />
+                        </button>
                     </div>
                 </div>
             ))}
