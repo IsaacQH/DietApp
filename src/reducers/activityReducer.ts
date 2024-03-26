@@ -24,9 +24,20 @@ export const activityReducer = (
     action: ActivityActions
 ) => {
     if(action.type === 'save-activity'){  //Guarda en state de activities  console.log(action.payload.newActivity)
+        
+        let updatedActivities:Activity[] = [] //Inicia el arreglo que se pasará
+
+        if(state.actID){    //Si existe es porque estamos editando
+            updatedActivities = state.activities.map((activity) => activity.id === state.actID ? action.payload.newActivity : activity) //itera y regresa el arreglo de activities, solo revisa el modificado y regresa el update
+
+        } else{    //
+            updatedActivities = [...state.activities, action.payload.newActivity] //Registra la nueva actividad en activities y también la copia de las anteriores
+        }
+        
         return {
             ...state,    //Toma la copia inicial de todos los states defindos en el ActivityState
-            activities: [...state.activities, action.payload.newActivity] //Registra la nueva actividad en activities y también la copia de las anteriores
+            activities: updatedActivities,  //Guarda el arreglo indicado 
+            actID: ''     //Reinicia el update y quita el id registrad
         }
     }
 

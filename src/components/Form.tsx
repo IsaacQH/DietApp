@@ -107,7 +107,7 @@ export const Form = ({dispatch, state}:FormProps) => {
              <input 
                 type="submit"
                 className="bg-gray-800 hover:bg-slate-900 w-full p-2 font-bold uppercase text-white cursor-pointer rounded-md mt-5 disabled:cursor-not-allowed disabled:bg-gray-500"
-                value={!isValidActivity() ? "Fill Records" : "Add New"}
+                value={!isValidActivity() ? "Fill Records" : "Add"}
                 disabled={!isValidActivity()}
             />
         </div>
