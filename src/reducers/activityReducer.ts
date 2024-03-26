@@ -3,7 +3,8 @@ import { Activity } from "../types"
 
 export type ActivityActions = 
     {type: 'save-activity', payload: {newActivity: Activity}} |
-    {type: 'set-actID', payload: {id: Activity['id']}}
+    {type: 'set-actID', payload: {id: Activity['id']}} |
+    {type: 'delete-activity', payload: {id: Activity['id']}}
 
 
 //Definimos un tipo de dato y lo hacemos localmente para llamar un array de Activity, importamos el tipo de dato.
@@ -46,6 +47,14 @@ export const activityReducer = (
         return {
             ...state,      //Se usa para no borrar los estados de los demas states
             actID: action.payload.id  //Registra el id capturado por el action
+        }
+    }
+
+    if(action.type === 'delete-activity'){
+        console.log("Deleting")
+        return{
+            ...state,    //Toma la copia inicial de todos los states defindos en el ActivityState
+            activities: state.activities.filter(activity => activity.id !== action.payload.id),  //Guarda el arreglo indicado 
         }
     }
 
