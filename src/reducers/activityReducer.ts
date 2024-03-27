@@ -4,7 +4,8 @@ import { Activity } from "../types"
 export type ActivityActions = 
     {type: 'save-activity', payload: {newActivity: Activity}} |
     {type: 'set-actID', payload: {id: Activity['id']}} |
-    {type: 'delete-activity', payload: {id: Activity['id']}}
+    {type: 'delete-activity', payload: {id: Activity['id']}} |
+    {type: 'restart-app'}
 
 
 //Definimos un tipo de dato y lo hacemos localmente para llamar un array de Activity, importamos el tipo de dato.
@@ -13,9 +14,14 @@ export type ActivityState = {
     actID: Activity['id']      // O podemos poner string
 }
 
+const localStorageMemo = ():Activity[] => {
+    const act = localStorage.getItem('activities')
+    return act ? JSON.parse(act) : []
+}
+
 //Le damos el initial state según el tipo de dato ActivityState, arreglo vacio
 export const initialState: ActivityState = {
-    activities: [],
+    activities: localStorageMemo(),
     actID: ''         //Guarda el id para ediciones
 }
 
@@ -55,6 +61,13 @@ export const activityReducer = (
         return{
             ...state,    //Toma la copia inicial de todos los states defindos en el ActivityState
             activities: state.activities.filter(activity => activity.id !== action.payload.id),  //Guarda el arreglo indicado 
+        }
+    }
+
+    if(action.type === 'restart-app'){  //No se manda el ...state porque reiniciamos todo
+        return{        //Vacia todo
+            activities: [],
+            actID: ''         
         }
     }
 
