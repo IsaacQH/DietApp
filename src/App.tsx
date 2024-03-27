@@ -2,6 +2,7 @@ import { useEffect, useMemo, useReducer } from "react"
 import { activityReducer, initialState } from "./reducers/activityReducer"
 import { Form } from "./components/Form"
 import { ActivityList } from "./components/ActivityList"
+import { CalorieTracker } from "./components/CalorieTracker"
 
 function App() {
 
@@ -23,7 +24,7 @@ function App() {
           </div>
           <div>
             <button 
-              className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-xl mr-10 uppercase disabled:opacity-20 disabled:bg-gray-600"
+              className="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-xl mr-10 uppercase disabled:opacity-20 disabled:bg-gray-600"
               onClick={() => dispatch({type:'restart-app'})}
               disabled={!canRestartApp()  /*Solo funciona cuando esta en falso y no hay activities*/}
             >
@@ -38,6 +39,14 @@ function App() {
           <Form
             dispatch = {dispatch}
             state = {state}
+          />
+        </div>
+      </section>
+
+      <section className="bg-gray-800 p-20">
+        <div className="max-w-4xl mx-auto">
+          <CalorieTracker
+            activities = {state.activities}
           />
         </div>
       </section>
