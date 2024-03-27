@@ -19,7 +19,7 @@ function App() {
       <header className="bg-lime-600 py-3 jus">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
           <div className="flex items-center"> 
-            <img src="src\assets\logo.png" alt="logo" className="mr-2" />
+            <img src="/src/assets/logo.png" alt="logo" className="mr-2" />
             <h1 className="text-lg font-bold text-gray-700 uppercase">Diet App ®</h1>
           </div>
           <div>
